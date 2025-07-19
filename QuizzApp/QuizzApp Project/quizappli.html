@@ -1,0 +1,348 @@
+ <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Exam</title>
+    <style>
+        body{
+            background-color:  rgb(19, 19, 102);
+            background:none;
+        }
+        .container{
+           background-color:white;
+           height:500px;
+           width:500px;
+           padding:10px 10px 10px 10px;
+           border-radius: 10px;;
+        }
+    .question-1{
+        display:flex;
+        flex-direction: row;
+        justify-content:space-between;
+    }
+    .clockpic{
+        margin-top: 10px;;
+        margin-left: 200px;
+    }
+    body {
+    background-color: #000080;
+    display: flex;
+    justify-content: center;     /* Horizontal centering */
+    align-items: center;         /* Vertical centering */
+    min-height: 100vh;           /* Full viewport height */
+    margin: 0;                   /* Remove default margin */
+}
+.arrow{
+    margin-left: 2px;;
+}
+.next-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* spacing between button and image */
+}
+
+.arrow {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+
+}
+.option {
+  background-color:#f0f0f0; 
+  padding: 10px 15px;
+  margin:5px 0px;
+  border-radius: 5px; 
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 10px;;
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.option:hover {
+  background-color: #d0d0ff; /* hover effect */
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question-1">
+           <h1>Quiz Application</h1>
+<img src="D:\QuizzApp Project\clock.png " width="30px;"height="30px;" class="clockpic">
+<h4>15s</h4>
+        </div>
+        <hr>
+<h1>In,Javascript,how to create function,</h1>
+<ol>
+  <!-- <li class="option" data-correct="false">definition myfunction()</li>
+  <li class="option" data-correct="true">function myfunction()</li> 
+  <li class="option" data-correct="false">create myfunction()</li>
+  <li class="option" data-correct="false">Create myfunction()</li>
+</ol>
+<h5><b>2</b>out of<b>3</b>Questions</h5>
+<div class="next-wrapper">
+  <button>Next</button>
+  <a href="your-link.html">
+    <img src="D:\QuizzApp Project\right-arrow.png" class="arrow" alt="Next Arrow">
+  </a>
+</div>
+
+    
+    </div>
+    <script src="questions.js"></script>
+     <script> -->
+   <!-- const options = document.querySelectorAll('.option');
+
+  options.forEach(option => {
+    option.addEventListener('click', () => {
+      // Reset all options
+      options.forEach(opt => {
+        opt.style.backgroundColor = '#f0f0f0';
+      });
+
+      const isCorrect = option.getAttribute('data-correct') === 'true';
+      option.style.backgroundColor = isCorrect ? 'lightgreen' : 'lightcoral'; 
+    }); 
+   });
+</script>
+
+</body>
+</html> -->
+  --> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Exam</title>
+  <style>
+    body {
+      background-color: #000080;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      background-color: white;
+      height: auto;
+      width: 500px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .option {
+      background-color: #f0f0f0;
+      padding: 10px 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .option:hover {
+      background-color: #d0d0ff;
+    }
+    .correct {
+      background-color: lightgreen !important;
+    }
+    .incorrect {
+      background-color: lightcoral !important;
+    }
+    .next-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="quiz">
+    <div class="question-header">
+      <h2>Quiz Application</h2>
+      <h4 id="timer">15s</h4>
+    </div>
+    <hr>
+    <h3 id="question-text"></h3>
+    <div id="options"></div>
+    <p id="progress"></p>
+    <div class="next-wrapper">
+      <button id="next-btn">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        text: "What is 2 + 2?",
+        options: ["3", "4", "5", "6"],
+        answer: "4"
+      },
+      {
+        text: "What is the square root of 9?",
+        options: ["1", "2", "3", "4"],
+        answer: "3"
+      },
+      {
+        text: "What is 10 ÷ 2?",
+        options: ["2", "4", "5", "6"],
+        answer: "5"
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selected = false;
+
+    const questionText = document.getElementById("question-text");
+    const optionsContainer = document.getElementById("options");
+    const progress = document.getElementById("progress");
+    const nextBtn = document.getElementById("next-btn");
+
+    function displayQuestion() {
+      selected = false;
+      const question = questions[currentQuestionIndex];
+      questionText.innerText = question.text;
+      optionsContainer.innerHTML = "";
+
+      question.options.forEach(option => {
+        const li = document.createElement("div");
+        li.className = "option";
+        li.innerText = option;
+        li.onclick = () => checkAnswer(li, option);
+        optionsContainer.appendChild(li);
+      });
+
+      progress.innerHTML = `<b>${currentQuestionIndex + 1}</b> out of <b>${questions.length}</b> Questions`;
+    }
+
+    function checkAnswer(element, selectedOption) {
+      if (selected) return;
+      selected = true;
+
+      const correctAnswer = questions[currentQuestionIndex].answer;
+      const allOptions = document.querySelectorAll(".option");
+
+      allOptions.forEach(opt => {
+        opt.classList.add(opt.innerText === correctAnswer ? "correct" : "incorrect");
+        opt.style.pointerEvents = "none";
+      });
+
+      if (selectedOption === correctAnswer) score++;
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+      } else {
+        showResults();
+      }
+    });
+
+    // function showResults() {
+    //   document.getElementById("quiz").innerHTML = `
+    //   <img src="D:\QuizzApp Project\icons8-party-popper-50.png"width="200px;"height="200px;"id="pic">
+    //     <h2>Quiz Completed!</h2>
+    //     <p>Your score: ${score} out of ${questions.length}</p>
+    //     <button onclick="restartQuiz()">Restart Quiz</button>
+    //   `;
+    // }
+    function showResults() {
+  document.getElementById("quiz").innerHTML = `
+    <img src="icons8-party-popper-50.png" width="200" height="200" id="pic" alt="Celebration">
+    <h2>Quiz Completed!</h2>
+    <p>Your score: ${score} out of ${questions.length}</p>
+    <button onclick="restartQuiz()">Restart Quiz</button>
+  `;
+}
+
+
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      document.getElementById("quiz").innerHTML = `
+        <div class="question-header">
+          <h2>Quiz Application</h2>
+          <h4 id="timer">15s</h4>
+        </div>
+        <hr>
+        <h3 id="question-text"></h3>
+        <div id="options"></div>
+        <p id="progress"></p>
+        <div class="next-wrapper">
+          <button id="next-btn">Next</button>
+        </div>
+      `;
+      // Re-bind elements
+      questionText = document.getElementById("question-text");
+      optionsContainer = document.getElementById("options");
+      progress = document.getElementById("progress");
+      nextBtn = document.getElementById("next-btn");
+      nextBtn.addEventListener("click", () => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          displayQuestion();
+        } else {
+          showResults();
+        }
+      });
+      displayQuestion();
+    }
+
+    // Start quiz
+    displayQuestion();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
